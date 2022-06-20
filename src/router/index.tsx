@@ -1,3 +1,5 @@
+import { Footer } from 'components/Footer';
+import { Navbar } from 'components/Navbar';
 import { About, Home } from 'pages';
 import {
   BrowserRouter,
@@ -8,10 +10,12 @@ import {
 
 export const Router = () => (
   <BrowserRouter basename={process.env.PUBLIC_URL}> {/* Essa propriedade será útil quando subirmos para o GH-Pages */}
+    <Navbar />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
+    <Footer />
   </BrowserRouter>
 );
