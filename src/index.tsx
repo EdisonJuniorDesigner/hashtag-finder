@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import GlobalStyle from "./globalStyle";
+import { FontStyles } from "styles/FontStyles";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -12,6 +13,7 @@ root.render(
     <React.StrictMode>
         <App />
         <GlobalStyle />
+        <FontStyles />
     </React.StrictMode>
 );
 
