@@ -4,8 +4,12 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 15px 30px;
-    background: #0a1744;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(30px);
+    background: rgba(10, 23, 68, 0.8);
+    box-shadow: 0px 0px 10px rgba(85, 56, 238, 0.12);
+    position: sticky;
+    top: 0;
+    width: 100%;
 
     .navbar-button {
         display: flex;
@@ -23,7 +27,7 @@ export const Container = styled.div`
             font-size: 15px;
             letter-spacing: 2px;
             cursor: pointer;
-            transition: 1s;
+            transition: background-color .3s ease;
 
             img {
                 margin-right: 10px;
