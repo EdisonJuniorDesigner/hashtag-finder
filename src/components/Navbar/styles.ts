@@ -11,6 +11,12 @@ export const Container = styled.div`
     top: 0;
     width: 100%;
 
+    .navbar-logo {
+        img {
+            max-width: 239px;
+        }
+    }
+
     .navbar-button {
         display: flex;
         align-items: center;
@@ -21,13 +27,14 @@ export const Container = styled.div`
             align-items: center;
             border-radius: 25px;
             border: none;
-            padding: 8px 30px;
+            padding: 8px 16px;
+            width: 100%;
             text-transform: uppercase;
             font-weight: bold;
             font-size: 15px;
             letter-spacing: 2px;
             cursor: pointer;
-            transition: background-color .3s ease;
+            transition: background-color 0.3s ease;
 
             img {
                 margin-right: 10px;
@@ -38,7 +45,6 @@ export const Container = styled.div`
         .navbar-btn-about {
             background-color: #72efdb;
             color: #0a1744;
-            margin-right: 35px;
         }
 
         .navbar-btn-about:hover {
@@ -46,6 +52,7 @@ export const Container = styled.div`
         }
 
         .navbar-btn-login {
+            margin-left: 35px;
             background-color: #1e3e7b;
             color: #fff;
         }

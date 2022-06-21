@@ -167,4 +167,123 @@ export const Container = styled.div`
             }
         }
     }
+
+    @media (max-width: 1600px) {
+        background-position: 40% -20%;
+
+        .container-home {
+            padding-left: 30px;
+            padding-right: 30px;
+
+            .search input {
+                border-radius: 0 50px 50px 0;
+            }
+        }
+    }
+
+    @media (max-width: 900px) {
+        .container-home {
+            .hero .title {
+                max-width: none;
+                h1 {
+                    font-size: 60px;
+                }
+
+                p {
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 700px) {
+        .container-home {
+            padding: 60px 60px 0;
+
+            .hero .title {
+                margin-bottom: 80px;
+            }
+
+            .hero .title {
+                max-width: none;
+                h1 {
+                    font-size: 45px;
+                }
+
+                p {
+                    max-width: none;
+                    font-size: 25px;
+                }
+            }
+
+            .hero .search {
+                margin-bottom: 300px;
+
+                form img {
+                    width: 15px;
+                }
+
+                form img.search-img {
+                    margin-left: 30px;
+                }
+
+                form {
+                    width: 100%;
+                    text-align: center;
+                    border-radius: 50px;
+                    background-color: #1e3e7b;
+                    display: flex;
+
+                    input {
+                        margin-left: 5px;
+                        font-size: 20px;
+                        padding: 20px 20px;
+                        color: #fff;
+                        border: none;
+                        width: 80%;
+                        background-color: #1e3e7b;
+                    }
+                }
+
+                form input::placeholder {
+                    color: #8d9da2;
+                }
+            }
+
+            .content {
+                .content-twitter {
+                    flex-direction: column;
+
+                    .content-head {
+                        display: flex;
+                        justify-content: space-around;
+                        margin-bottom: 15px;
+
+                        .content-head-tweets,
+                        .content-head-images {
+                            padding: 20px 0;
+                            width: 100%;
+                            color: #fff;
+                            border-bottom: 1px solid #ffffff24;
+                            text-align: center;
+                            cursor: pointer;
+                            background: none;
+                            border: none;
+                        }
+
+                        .content-head-tweets,
+                        .content-head-images:focus {
+                            font-weight: bold;
+                            color: #72efdb;
+                            border-bottom: 2px solid #72efdb;
+                        }
+                    }
+
+                    .content-twitter-tweets {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
 `;
