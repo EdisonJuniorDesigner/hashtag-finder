@@ -259,6 +259,10 @@ export const Container = styled.div`
                         justify-content: space-around;
                         margin-bottom: 15px;
 
+                        button{
+
+                        }
+
                         .content-head-tweets,
                         .content-head-images {
                             padding: 20px 0;
@@ -271,7 +275,7 @@ export const Container = styled.div`
                             border: none;
                         }
 
-                        .content-head-tweets,
+                        .content-head-tweets:focus,
                         .content-head-images:focus {
                             font-weight: bold;
                             color: #72efdb;
