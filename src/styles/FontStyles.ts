@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-import RubikLight from "../assets/fonts/Rubik/Rubik-Black.ttf";
+import RubikLight from "../assets/fonts/Rubik/Rubik-Light.ttf";
 import RubikLightItalic from "assets/fonts/Rubik/Rubik-LightItalic.ttf";
 import RubikRegular from "assets/fonts/Rubik/Rubik-Regular.ttf";
 import RubikRegularItalic from "assets/fonts/Rubik/Rubik-Italic.ttf";
