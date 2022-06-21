@@ -33,7 +33,7 @@ export const Navbar = () => {
                     <Link to="/" >
                     <button className="navbar-btn-about">
                         <img src={IconHome} alt="" />
-                        sobre
+                        home
                     </button>
                 </Link>
                 }
