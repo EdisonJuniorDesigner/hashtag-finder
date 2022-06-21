@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { Container, Title, Subtitle, Hero, Developers } from "./styles";
-import aboutIllustration from "assets/img/_about-illustration.svg";
+import aboutIllustration from "assets/img/about-ilustration.svg";
 import DevCard from 'components/DevCard';
 
 let developers = [
