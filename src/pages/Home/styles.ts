@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import backgroundHero from "../../assets/img/hero-bg.jpg";
+import backgroundMobileHero from "../../assets/img/mobile-hero-bg.jpg";
 
 export const Container = styled.div`
     display: flex;
@@ -95,13 +96,11 @@ export const Container = styled.div`
                         flex-direction: column;
                         justify-content: end;
                         border-radius: 15px;
-                        margin-right: 40px;
-                        margin-bottom: 40px;
+                        margin: 20px 20px;
                         width: 180px;
                         height: 300px;
 
                         .twitter-image-info {
-                            position: relative;
                             padding: 20px;
                             border-radius: 0 0 15px 15px;
 
@@ -197,6 +196,16 @@ export const Container = styled.div`
     }
 
     @media (max-width: 700px) {
+        background-image: linear-gradient(
+                to bottom,
+                transparent 0%,
+                #0a1744 95%
+            ),
+            url(${backgroundMobileHero});
+
+        background-size: 100%;
+        background-position: 0 -45%;
+
         .container-home {
             padding: 60px 60px 0;
 
@@ -205,13 +214,13 @@ export const Container = styled.div`
             }
 
             .hero .title {
-                max-width: none;
+                max-width: auto;
                 h1 {
                     font-size: 45px;
                 }
 
                 p {
-                    max-width: none;
+                    max-width: auto;
                     font-size: 25px;
                 }
             }
@@ -259,8 +268,7 @@ export const Container = styled.div`
                         justify-content: space-around;
                         margin-bottom: 15px;
 
-                        button{
-
+                        button {
                         }
 
                         .content-head-tweets,
@@ -285,6 +293,48 @@ export const Container = styled.div`
 
                     .content-twitter-tweets {
                         width: 100%;
+                    }
+
+                    .content-twitter-images {
+                        width: 100%;
+                        .twitter-image {
+                            width: 180px;
+                            height: 250px;
+                            flex-grow: 1;
+                            flex-basis: 40%;
+                            margin: 10px !important;
+
+                            .twitter-image-info {
+                                position: relative;
+                                padding: 20px;
+                                border-radius: 0 0 15px 15px;
+
+                                background: linear-gradient(
+                                    to bottom,
+                                    transparent 0%,
+                                    #000 95%
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 570px) {
+        background-position: 0 0;
+
+        .container-home {
+            padding: 30px 30px 0;
+        }
+
+        .content {
+            .content-twitter {
+                .content-twitter-images {
+                    .twitter-image {
+                        width: 150px !important;
+                        height: 180px !important;
                     }
                 }
             }

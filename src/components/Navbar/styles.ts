@@ -14,7 +14,8 @@ export const Container = styled.div`
 
     .navbar-logo {
         img {
-            max-width: 239px;
+            max-width: 200px;
+            width: auto;
         }
     }
 
@@ -53,13 +54,30 @@ export const Container = styled.div`
         }
 
         .navbar-btn-login {
-            margin-left: 35px;
+            margin-left: 20px;
             background-color: #1e3e7b;
             color: #fff;
         }
 
         .navbar-btn-login:hover {
             background-color: #0c2a60;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .navbar-logo {
+            img {
+                max-width: 180px;
+            }
+        }
+
+        .navbar-btn-about,
+        .navbar-btn-login {
+            font-size: 10px !important;
+        }
+
+        .navbar-btn-login {
+            margin-left: 8px;
         }
     }
 `;
