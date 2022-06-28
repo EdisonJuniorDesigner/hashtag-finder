@@ -5,7 +5,7 @@ import { Container, Title, Table } from './styles';
 export function Dashboard() {
   return (
     <Container>
-      <Title>Dashboard</Title>
+      <Title>Buscas Realizadas</Title>
 
       <Table>
         <thead>

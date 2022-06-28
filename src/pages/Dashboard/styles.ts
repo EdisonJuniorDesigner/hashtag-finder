@@ -12,6 +12,7 @@ export const Container = styled.div`
   background-attachment: fixed;
 
   @media (max-width: 768px) {
+    padding: 15px 2%;
   }
 `;
 
@@ -20,16 +21,22 @@ export const Title = styled.h1`
   font-weight: bold;
   margin: 10px 0 40px 0;
   color: #72EFDB;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 `;
 
 export const Table = styled.table`
   width: 100%;
+  max-width: 1280px;
   color: #fff;
   font-size: 16px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   border-radius: 14px;
   border-spacing: 0;
   padding-bottom: 20px;
+  margin: 0 auto;
 
   thead {
     /* text-align: left; */
@@ -53,10 +60,6 @@ export const Table = styled.table`
           border-radius: 10px 0 0 10px;
         }
 
-        &:nth-child(2) {
-          text-align: right;
-        }
-
         &:last-child {
           border-radius: 0 10px 10px 0;
         }
@@ -68,8 +71,6 @@ export const Table = styled.table`
   tbody {
 
     tr {
-      height: 40px;
-      width: 100%;
 
       td {
         padding: 24px 0 16px 32px;
@@ -78,10 +79,9 @@ export const Table = styled.table`
         border-bottom: 1px solid rgba(65, 85, 142, 1);
         color: #72EFDB;
 
-        &:nth-child(2) {
+        &:nth-child(1) {
           color: #fff;
-          width: 70%;
-          text-align: right;
+          width: 65%;
         }
 
         &:first-child {
@@ -101,11 +101,23 @@ export const Table = styled.table`
   }
 
   @media (max-width: 768px) {
+    font-size: 14px;
+
+    thead {
+      tr {
+        th {
+          padding: 16px 0 16px 12px;
+        }
+      }
+    }
+
     tbody{
       tr {
         td {
-          &:nth-child(2) {
-            width: 40%;
+          padding: 12px 0 12px 12px;
+
+          &:nth-child(1) {
+            width: 55%;
           }
         }
       }
