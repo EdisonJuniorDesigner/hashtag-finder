@@ -68,6 +68,12 @@ export const Container = styled.div`
                 text-transform: uppercase;
                 font-weight: 500;
                 font-size: 14px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            button:hover {
+                background-color: #2ba08d;
             }
         }
     }
