@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.js": "/EdisonJuniorDesigner/hashtag-finder/static/js/main.6024e28e.js",
+    "static/js/787.5ed0842f.chunk.js": "/EdisonJuniorDesigner/hashtag-finder/static/js/787.5ed0842f.chunk.js",
+    "static/media/hero-bg.jpg": "/EdisonJuniorDesigner/hashtag-finder/static/media/hero-bg.7387f69561a3fdebe1d8.jpg",
+    "static/media/Rubik-Regular.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-Regular.da39336cfcac7980f2f1.ttf",
+    "static/media/Rubik-Medium.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-Medium.5bd2b2c6ad8019567605.ttf",
+    "static/media/Rubik-SemiBold.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-SemiBold.52d2adf4cb818e79b61d.ttf",
+    "static/media/Rubik-Bold.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-Bold.383b8c94b12034c5e8b5.ttf",
+    "static/media/Rubik-ExtraBold.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-ExtraBold.b30aba6dab6c09b0ebcc.ttf",
+    "static/media/Rubik-Black.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-Black.2b561a8eed0dced30c19.ttf",
+    "static/media/img-profile.png": "/EdisonJuniorDesigner/hashtag-finder/static/media/img-profile.3f71ad80ad93c9268ec4.png",
+    "static/media/Rubik-Light.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-Light.7ee66bf7f540d7bbc3a1.ttf",
+    "static/media/Rubik-SemiBoldItalic.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-SemiBoldItalic.57d314639f4c94673f20.ttf",
+    "static/media/Rubik-ExtraBoldItalic.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-ExtraBoldItalic.0380268cf13ea888e146.ttf",
+    "static/media/Rubik-MediumItalic.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-MediumItalic.1bc75ab48553c7661b52.ttf",
+    "static/media/Rubik-BoldItalic.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-BoldItalic.fd2b84fec944cbd3a631.ttf",
+    "static/media/Rubik-Italic.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-Italic.dace38b0d49a05e8c0cd.ttf",
+    "static/media/Rubik-BlackItalic.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-BlackItalic.447fb288626f58efae2b.ttf",
+    "static/media/Rubik-LightItalic.ttf": "/EdisonJuniorDesigner/hashtag-finder/static/media/Rubik-LightItalic.987cbfce8f8d8c59af60.ttf",
+    "static/media/mobile-hero-bg.jpg": "/EdisonJuniorDesigner/hashtag-finder/static/media/mobile-hero-bg.947a315ff03c5172344e.jpg",
+    "static/media/img-01.jpg": "/EdisonJuniorDesigner/hashtag-finder/static/media/img-01.090369fb67762b1e60fd.jpg",
+    "static/media/about-hero-bg.jpg": "/EdisonJuniorDesigner/hashtag-finder/static/media/about-hero-bg.6e1da22ba412a8f5dc98.jpg",
+    "static/media/table-bg.jpg": "/EdisonJuniorDesigner/hashtag-finder/static/media/table-bg.487eb9906537771da798.jpg",
+    "static/media/about-ilustration.svg": "/EdisonJuniorDesigner/hashtag-finder/static/media/about-ilustration.228b587d06547b48485f6beaed029b6a.svg",
+    "index.html": "/EdisonJuniorDesigner/hashtag-finder/index.html",
+    "static/media/icon-home.svg": "/EdisonJuniorDesigner/hashtag-finder/static/media/icon-home.103e9249c7f181777ad391116da36dab.svg",
+    "static/media/icon-search.svg": "/EdisonJuniorDesigner/hashtag-finder/static/media/icon-search.71835400fad040fe22085bdaf45ddbd5.svg",
+    "static/media/icon-info-circle.svg": "/EdisonJuniorDesigner/hashtag-finder/static/media/icon-info-circle.a0585406f44684394c6f2d0948710cff.svg",
+    "static/media/icon-user-alt.svg": "/EdisonJuniorDesigner/hashtag-finder/static/media/icon-user-alt.79fa24acb07673776e11a1eac38822de.svg",
+    "static/media/logo.svg": "/EdisonJuniorDesigner/hashtag-finder/static/media/logo.49a02989223b26d8037017fb49ad9295.svg",
+    "main.6024e28e.js.map": "/EdisonJuniorDesigner/hashtag-finder/static/js/main.6024e28e.js.map",
+    "787.5ed0842f.chunk.js.map": "/EdisonJuniorDesigner/hashtag-finder/static/js/787.5ed0842f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.6024e28e.js"
+  ]
+}
