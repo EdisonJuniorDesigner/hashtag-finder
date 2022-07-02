@@ -67,13 +67,17 @@ export const Container = styled.div`
     @media (max-width: 600px) {
         .navbar-logo {
             img {
-                max-width: 180px;
+                max-width: 150px;
             }
         }
 
         .navbar-btn-about,
         .navbar-btn-login {
             font-size: 10px !important;
+        }
+
+        .navbar-button .navbar-btn-login {
+            margin-left: 5px;
         }
 
         .navbar-btn-login {
