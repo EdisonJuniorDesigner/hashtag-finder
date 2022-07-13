@@ -52,6 +52,7 @@ export const CardLink = styled.div`
   a{
     color: #72EFDB;
     transition: all 0.3s ease-in-out;
+    cursor: pointer;
 
     &:hover{
       opacity: 0.8;

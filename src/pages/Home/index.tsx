@@ -4,7 +4,6 @@ import Img from "../../assets/img/img-01.jpg";
 import ImgProfile from "../../assets/img/img-profile.png";
 import IconSearch from "../../assets/img/icon-search.svg";
 import { useMediaQuery } from "react-responsive";
-import { useHashtags } from "hooks";
 
 export const Home = () => {
     const isMobile = useMediaQuery({ maxWidth: 700 });
@@ -12,8 +11,6 @@ export const Home = () => {
 
     const tweetsRef = useRef<HTMLButtonElement>(null);
     const imagesRef = useRef<HTMLButtonElement>(null);
-
-    const { hashtags, getAllHashtags } = useHashtags();
 
     const handleToggle = () => {
         if (current === "tweets") {
@@ -27,12 +24,7 @@ export const Home = () => {
 
     useEffect(() => {
         handleToggle();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [current]);
-
-    useEffect(() => {
-        console.log(hashtags)
-    }, [getAllHashtags, hashtags]);
 
     return (
         <Container>

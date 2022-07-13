@@ -5,8 +5,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const Router = () => (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-        {" "}
-        {/* Essa propriedade será útil quando subirmos para o GH-Pages */}
         <Navbar />
         <Routes>
             <Route path="/" element={<Home />} />

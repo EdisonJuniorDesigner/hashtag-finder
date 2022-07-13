@@ -21,6 +21,11 @@ type Props = {
 }
 
 export default function DevCard({ name, description, avatar, github, linkedin, email }: Props) {
+
+  const copyValueToClipboard = (value: string) => {
+    navigator.clipboard.writeText(value);
+  }
+
   return (
     <Container>
       <ImageWrapper>
@@ -36,10 +41,10 @@ export default function DevCard({ name, description, avatar, github, linkedin, e
         <a href={github} target="_blank" rel="noopener noreferrer">
           <GithubIcon />
         </a>
-        <a href={linkedin} target="_blank" rel="noopener noreferrer">
+        <a onClick={() => copyValueToClipboard(email)} target="_blank" rel="noopener noreferrer">
           <MailIcon />
         </a>
-        <a href={email} target="_blank" rel="noopener noreferrer">
+        <a href={linkedin} target="_blank" rel="noopener noreferrer">
           <LinkedinIcon />
         </a>
       </CardLink>
