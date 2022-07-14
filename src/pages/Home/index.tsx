@@ -6,11 +6,26 @@ import IconSearch from "../../assets/img/icon-search.svg";
 import { useMediaQuery } from "react-responsive";
 import { getHashtags } from "services";
 
+interface ResponseData {
+    data: {
+        author_id: string;
+        id: string;
+        text: string;
+    };
+    include: {
+        users: {
+            id: string;
+            name: string;
+            profile_image_url: string;
+            username: string;
+        };
+    };
+}
+
 export const Home = () => {
     const isMobile = useMediaQuery({ maxWidth: 700 });
     const [current, setCurrent] = useState("tweets");
-    const [tweets, setTweets] = useState([]);
-
+    const [tweets, setTweets] = useState<ResponseData[]>([]);
 
     const tweetsRef = useRef<HTMLButtonElement>(null);
     const imagesRef = useRef<HTMLButtonElement>(null);
@@ -30,9 +45,8 @@ export const Home = () => {
     }, [current]);
 
     useEffect(() => {
-        getHashtags()
+        getHashtags([setTweets]);
     }, []);
-    useEffect(() => console.log(tweets), [tweets]);
 
     return (
         <Container>
@@ -116,101 +130,43 @@ export const Home = () => {
                                 </div>
 
                                 <div className="content-twitter-tweets">
-                                    <div className="twitter-tweet">
-                                        <img
-                                            src={ImgProfile}
-                                            alt="Foto de perfil"
-                                        />
-                                        <div>
-                                            <div className="tweet-head">
-                                                <p>UserName</p>
-                                                <span>@twitterusername</span>
+                                    {tweets.map((tweet) => {
+                                        return (
+                                            <div className="twitter-tweet">
+                                                <img
+                                                    src={
+                                                        tweet.include.users
+                                                            .profile_image_url
+                                                    }
+                                                    alt="Foto de perfil"
+                                                />
+                                                <div>
+                                                    <div className="tweet-head">
+                                                        <p>
+                                                            {
+                                                                tweet.include
+                                                                    .users.name
+                                                            }
+                                                        </p>
+                                                        <span>
+                                                            @
+                                                            {
+                                                                tweet.include
+                                                                    .users
+                                                                    .username
+                                                            }
+                                                        </span>
+                                                    </div>
+                                                    <p className="tweet">
+                                                        {tweet.data.text}
+                                                    </p>
+                                                    <a href="">
+                                                        Ver mais no Twitter
+                                                    </a>
+                                                </div>
                                             </div>
-                                            <p className="tweet">
-                                                Lorem ipsum dolor sit amet,
-                                                consetetur sadipscing elitr, sed
-                                                diam nonumy eirmod tempor
-                                                invidunt...
-                                            </p>
-                                            <a href="/">Ver mais no Twitter</a>
-                                        </div>
-                                    </div>
-                                    <div className="twitter-tweet">
-                                        <img
-                                            src={ImgProfile}
-                                            alt="Foto de perfil"
-                                        />
-                                        <div>
-                                            <div className="tweet-head">
-                                                <p>UserName</p>
-                                                <span>@twitterusername</span>
-                                            </div>
-                                            <p className="tweet">
-                                                Lorem ipsum dolor sit amet,
-                                                consetetur sadipscing elitr, sed
-                                                diam nonumy eirmod tempor
-                                                invidunt...
-                                            </p>
-                                            <a href="/">Ver mais no Twitter</a>
-                                        </div>
-                                    </div>
-                                    <div className="twitter-tweet">
-                                        <img
-                                            src={ImgProfile}
-                                            alt="Foto de perfil"
-                                        />
-                                        <div>
-                                            <div className="tweet-head">
-                                                <p>UserName</p>
-                                                <span>@twitterusername</span>
-                                            </div>
-                                            <p className="tweet">
-                                                Lorem ipsum dolor sit amet,
-                                                consetetur sadipscing elitr, sed
-                                                diam nonumy eirmod tempor
-                                                invidunt...
-                                            </p>
-                                            <a href="/">Ver mais no Twitter</a>
-                                        </div>
-                                    </div>
-                                    <div className="twitter-tweet">
-                                        <img
-                                            src={ImgProfile}
-                                            alt="Foto de perfil"
-                                        />
-                                        <div>
-                                            <div className="tweet-head">
-                                                <p>UserName</p>
-                                                <span>@twitterusername</span>
-                                            </div>
-                                            <p className="tweet">
-                                                Lorem ipsum dolor sit amet,
-                                                consetetur sadipscing elitr, sed
-                                                diam nonumy eirmod tempor
-                                                invidunt...
-                                            </p>
-                                            <a href="/">Ver mais no Twitter</a>
-                                        </div>
-                                    </div>
-                                    <div className="twitter-tweet">
-                                        <img
-                                            src={ImgProfile}
-                                            alt="Foto de perfil"
-                                        />
-                                        <div>
-                                            <div className="tweet-head">
-                                                <p>UserName</p>
-                                                <span>@twitterusername</span>
-                                            </div>
-                                            <p className="tweet">
-                                                Lorem ipsum dolor sit amet,
-                                                consetetur sadipscing elitr, sed
-                                                diam nonumy eirmod tempor
-                                                invidunt...
-                                            </p>
-                                            <a href="/">Ver mais no Twitter</a>
-                                        </div>
-                                    </div>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         </>
