@@ -1,4 +1,4 @@
-import { airTableBase } from "providers";
+import { Airtable } from "providers";
 
 interface IHashtag {
   squad: string;
@@ -9,17 +9,7 @@ interface IHashtag {
 export type THashtags = IHashtag[];
 
 const getAllHashtags = async () => {
-  const hashtags = await airTableBase("Hashtags")
-    .select({
-      maxRecords: 5,
-      view: "Grid view"
-    }).all();
-
-  return hashtags.map(hashtag => ({
-    squad: hashtag.get("05-22"),
-    hashtag: hashtag.get("Hashtag"),
-    data: hashtag.get("Data")
-  }));
+  const hashtags = await Airtable("Hashtags")
 }
 
 export const HashtagsService = {

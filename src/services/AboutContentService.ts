@@ -1,37 +1,61 @@
-import { airTableBase } from "providers";
+import { Airtable } from "providers";
 
 interface IDev {
-  name: string;
-  description: string;
-  github: string;
-  email: string;
-  linkedin: string;
-  avatar: [{
+  Nome: string;
+  Descrição: string;
+  Github: string;
+  Email: string;
+  LinkedIn: string;
+  Imagem: [{
     url: string;
   }];
+}
+
+interface IAboutContent {
+  Sobre: string;
+}
+
+type TDevsResponse = {
+  records: [{
+    id: string;
+    fields: IDev;
+    createdTime: string;
+  }]
+}
+
+interface TAboutContentResponse {
+  records: [{
+    id: string;
+    fields: IAboutContent;
+    createdTime: string;
+  }]
 }
 
 export type TDevs = IDev[];
 
 const getAllDevs = async () => {
-  const response = await airTableBase("Equipe")
-    .select({
-      maxRecords: 4,
-      view: "Grid view"
-    }).all();
+  const response = await Airtable.get<TDevsResponse>("/Equipe?view=Grid%20view");
+  const devs = await response.data;
 
-  const devs = await response.map(dev => ({
-    name: dev.get("Nome"),
-    description: dev.get("Descrição"),
-    github: dev.get("Github"),
-    email: dev.get("Email"),
-    linkedin: dev.get("LinkedIn"),
-    avatar: dev.get("Imagem")
-  }));
+  return devs.records.map(dev => ({
+      id: dev.id,
+      name: dev.fields.Nome,
+      description: dev.fields.Descrição,
+      github: dev.fields.Github,
+      email: dev.fields.Email,
+      linkedin: dev.fields.LinkedIn,
+      avatar: dev.fields.Imagem[0].url,
+    }));
 
-  return devs;
+}
+
+const getAboutContent = async () => {
+  const response = await Airtable.get<TAboutContentResponse>("/Projeto?view=Grid%20view");
+  const aboutContent = await response.data;
+
+  return aboutContent.records[0].fields.Sobre;
 }
 
 export const AboutContentService = {
-  getAllDevs
+  getAllDevs, getAboutContent
 }
