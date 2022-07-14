@@ -4,12 +4,13 @@ import Img from "../../assets/img/img-01.jpg";
 import ImgProfile from "../../assets/img/img-profile.png";
 import IconSearch from "../../assets/img/icon-search.svg";
 import { useMediaQuery } from "react-responsive";
-import { Twitter } from "providers";
+import { getHashtags } from "services";
 
 export const Home = () => {
     const isMobile = useMediaQuery({ maxWidth: 700 });
     const [current, setCurrent] = useState("tweets");
     const [tweets, setTweets] = useState([]);
+
 
     const tweetsRef = useRef<HTMLButtonElement>(null);
     const imagesRef = useRef<HTMLButtonElement>(null);
@@ -29,7 +30,7 @@ export const Home = () => {
     }, [current]);
 
     useEffect(() => {
-        Twitter.get("").then((res) => setTweets(res.data));
+        getHashtags()
     }, []);
     useEffect(() => console.log(tweets), [tweets]);
 
