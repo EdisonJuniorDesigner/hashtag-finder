@@ -4,31 +4,20 @@ import Img from "../../assets/img/img-01.jpg";
 import ImgProfile from "../../assets/img/img-profile.png";
 import IconSearch from "../../assets/img/icon-search.svg";
 import { useMediaQuery } from "react-responsive";
-import { getHashtags } from "services";
-
-interface ResponseData {
-    data: {
-        author_id: string;
-        id: string;
-        text: string;
-    };
-    include: {
-        users: {
-            id: string;
-            name: string;
-            profile_image_url: string;
-            username: string;
-        };
-    };
-}
+import { HashtagsService, THashtags } from "services";
 
 export const Home = () => {
     const isMobile = useMediaQuery({ maxWidth: 700 });
-    const [current, setCurrent] = useState("tweets");
-    const [tweets, setTweets] = useState<ResponseData[]>([]);
 
+    const [current, setCurrent] = useState("tweets");
     const tweetsRef = useRef<HTMLButtonElement>(null);
     const imagesRef = useRef<HTMLButtonElement>(null);
+
+    const [tweetQuery, setTweetQuery] = useState("");
+    const [tweets, setTweets] = useState<THashtags[] | undefined>();
+    const [loading, setLoading] = useState(true);
+
+    const { getHashtags } = HashtagsService;
 
     const handleToggle = () => {
         if (current === "tweets") {
@@ -40,13 +29,22 @@ export const Home = () => {
         tweetsRef.current?.blur();
     };
 
+    const handleSend = () => {
+        setLoading(true);
+        getHashtags(tweetQuery).then(res => setTweets(res));
+        setLoading(false);
+    }
+
     useEffect(() => {
         handleToggle();
     }, [current]);
 
     useEffect(() => {
-        getHashtags([setTweets]);
+        getHashtags("natureza").then(res => setTweets(res));
+        setLoading(false);
     }, []);
+
+    useEffect(() => console.log(tweets), [tweets]);
 
     return (
         <Container>
@@ -65,11 +63,14 @@ export const Home = () => {
                                 src={IconSearch}
                                 alt="search"
                                 className="search-img"
+                                onClick={() => handleSend()}
                             />
                             <input
                                 type="text"
                                 className="search-input"
                                 placeholder="Buscar..."
+                                value={tweetQuery}
+                                onChange={e => setTweetQuery(e.target.value)}
                             />
                         </form>
                     </div>
@@ -130,35 +131,27 @@ export const Home = () => {
                                 </div>
 
                                 <div className="content-twitter-tweets">
-                                    {tweets.map((tweet) => {
+                                    {loading ? "Carregando..." : tweets?.map((tweet) => {
                                         return (
                                             <div className="twitter-tweet">
                                                 <img
                                                     src={
-                                                        tweet.include.users
-                                                            .profile_image_url
+                                                        tweet.user.profile_image_url
                                                     }
                                                     alt="Foto de perfil"
                                                 />
                                                 <div>
                                                     <div className="tweet-head">
                                                         <p>
-                                                            {
-                                                                tweet.include
-                                                                    .users.name
-                                                            }
+                                                            {tweet.user.name}
                                                         </p>
                                                         <span>
                                                             @
-                                                            {
-                                                                tweet.include
-                                                                    .users
-                                                                    .username
-                                                            }
+                                                            {tweet.user.username}
                                                         </span>
                                                     </div>
                                                     <p className="tweet">
-                                                        {tweet.data.text}
+                                                        {tweet.text}
                                                     </p>
                                                     <a href="">
                                                         Ver mais no Twitter
