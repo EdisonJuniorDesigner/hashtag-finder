@@ -4,6 +4,7 @@ import Logo from "../../assets/img/logo.svg";
 import IconInfo from "../../assets/img/icon-info-circle.svg";
 import IconHome from "../../assets/img/icon-home.svg";
 import IconLogin from "../../assets/img/icon-user-alt.svg";
+import IconLogout from "../../assets/img/icon-power-off.svg";
 import { Link, useLocation } from "react-router-dom";
 
 export const Navbar = () => {
@@ -35,7 +36,14 @@ export const Navbar = () => {
                         </button>
                     </Link>
                 )}
-                {path === "/login" ? null : (
+                {path === "/login" ? null : path == "/dashboard" ? (
+                    <Link to="/">
+                        <button className="navbar-btn-login">
+                            <img src={IconLogout} alt="" />
+                            sair
+                        </button>
+                    </Link>
+                ) : (
                     <Link to="/login">
                         <button className="navbar-btn-login">
                             <img src={IconLogin} alt="" />

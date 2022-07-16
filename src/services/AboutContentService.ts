@@ -13,11 +13,6 @@ interface IDev {
     ];
 }
 
-interface ILogin {
-    Email: string;
-    Senha: string;
-}
-
 interface IAboutContent {
     Sobre: string;
 }
@@ -28,15 +23,6 @@ type TDevsResponse = {
             id: string;
             fields: IDev;
             createdTime: string;
-        }
-    ];
-};
-
-type TLoginResponse = {
-    records: [
-        {
-            id: string;
-            fields: ILogin;
         }
     ];
 };
@@ -70,17 +56,6 @@ const getAllDevs = async () => {
     }));
 };
 
-const getLoginAccount = async (email: string, password: string) => {
-    const response = await Airtable.get<TLoginResponse>(
-        "/Login?view=Grid%20view"
-    );
-    const accounts = await response.data;
-
-    // return accounts.records.map((account) => ({
-    //     if(account.fields.Email === email && ){}
-    // }))
-};
-
 const getAboutContent = async () => {
     const response = await Airtable.get<TAboutContentResponse>(
         "/Projeto?view=Grid%20view"
@@ -92,6 +67,5 @@ const getAboutContent = async () => {
 
 export const AboutContentService = {
     getAllDevs,
-    getAboutContent,
-    getLoginAccount,
+    getAboutContent
 };

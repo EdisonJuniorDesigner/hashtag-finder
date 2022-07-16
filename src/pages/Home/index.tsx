@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Container } from "./styles";
 import Img from "../../assets/img/img-01.jpg";
 import ImgProfile from "../../assets/img/img-profile.png";
@@ -12,6 +12,8 @@ export const Home = () => {
     const [current, setCurrent] = useState("tweets");
     const tweetsRef = useRef<HTMLButtonElement>(null);
     const imagesRef = useRef<HTMLButtonElement>(null);
+
+    const [showQuery, setShowQuery] = useState(false);
 
     const [tweetQuery, setTweetQuery] = useState("");
     const [tweets, setTweets] = useState<THashtags[] | undefined>();
@@ -29,9 +31,19 @@ export const Home = () => {
         tweetsRef.current?.blur();
     };
 
+    const handleChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        setShowQuery(false);
+        if(e.key === "Enter" && tweetQuery.length > 0) {
+            handleSend();
+            return false;
+        }
+        return false;
+    }
+
     const handleSend = () => {
         setLoading(true);
         getHashtags(tweetQuery).then(res => setTweets(res));
+        setShowQuery(true);
         setLoading(false);
     }
 
@@ -58,7 +70,7 @@ export const Home = () => {
                         </p>
                     </div>
                     <div className="search">
-                        <form action="">
+                        <form onSubmit={e => e.preventDefault()}>
                             <img
                                 src={IconSearch}
                                 alt="search"
@@ -71,6 +83,7 @@ export const Home = () => {
                                 placeholder="Buscar..."
                                 value={tweetQuery}
                                 onChange={e => setTweetQuery(e.target.value)}
+                                onKeyPress={e => handleChange(e)}
                             />
                         </form>
                     </div>
@@ -78,10 +91,12 @@ export const Home = () => {
                 <div className="content">
                     {!isMobile ? (
                         <>
-                            <h2>
-                                Exibindo os 10 resultados mais recentes para
-                                #natureza
-                            </h2>
+                            { showQuery && (
+                                <h2>
+                                    Exibindo os 10 resultados mais recentes para
+                                    #{tweetQuery}
+                                </h2>
+                            ) }
                             <div className="content-twitter">
                                 <div className="content-twitter-images">
                                     <div

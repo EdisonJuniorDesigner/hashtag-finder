@@ -1,45 +1,69 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Container } from "./styles";
-import { AboutContentService } from "services";
+import { LoginService } from "services";
+import { useNavigate } from "react-router-dom"
 
 type TLogin = {
-    id: string;
     email: string;
-    senha: string;
+    password: string;
 };
 
 export const Login = () => {
-    const [loginAccountList, setLoginAccount] = useState<TLogin[]>([]);
 
-    const { getLoginAccount } = AboutContentService;
+    const { loginUser } = LoginService;
+    let navigate = useNavigate();
 
-    const handleClickLogin = () => {
-        // getLoginAccount().then(res =>        setLoginAccount(res));
+    const [ login, setLogin ] = useState<{success: boolean, message: string}|null>(null);
+
+
+    const handleClickLogin = async (values: TLogin) => {
+        const loginResponse = await loginUser(values.email, values.password);
+        setLogin(loginResponse);
+
     };
 
+    useEffect(() => {
+        if(login?.success){
+            navigate("/dashboard");
+            return;
+        }
+
+        alert(login?.message);
+
+    }, [login])
+
     const validationLogin = yup.object().shape({
-        username: yup.string().required("este campo é obrigatório"),
+        email: yup
+            .string()
+            .email("Digite um email válido")
+            .required("este campo é obrigatório"),
         password: yup
             .string()
             .min(5, "a senha deve ter no mínimo 5 caracteres")
-            .required("este campo é obrigatório"),
+            .required("Este campo é obrigatório"),
     });
+
+    const initialValues: TLogin = {
+        email: "",
+        password: "",
+    };
 
     return (
         <Container>
             <div className="container-login">
                 <h2>Login</h2>
                 <Formik
-                    initialValues={{}}
-                    onSubmit={handleClickLogin}
+                    initialValues={initialValues}
+                    onSubmit={(values, actions) => handleClickLogin(values)}
                     validationSchema={validationLogin}
                 >
                     <Form>
                         <Field
-                            name="username"
+                            name="email"
                             className="form-field"
+                            type="email"
                             placeholder="Usuário"
                         />
                         <ErrorMessage

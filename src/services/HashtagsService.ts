@@ -34,15 +34,17 @@ export type THashtags = {
 
 async function getHashtags(hashtagQuery: string) {
     try {
-        const response = await Twitter.get<THashtagsResponse>("/recent", {
+        const hashtagResponse = await Twitter.get<THashtagsResponse>("/recent", {
             params: {
-                query: hashtagQuery,
-                expansions: "author_id",
+                query: hashtagQuery+" has:hashtags -is:retweet -is:quote has:images",
+                expansions: "author_id,attachments.media_keys",
                 "user.fields": "profile_image_url",
+                "media.fields": "type,url,width,height",
+                "tweet.fields": "source"
             },
         });
 
-        const hashtags = await response.data;
+        const hashtags = await hashtagResponse.data;
         const users = await hashtags.includes.users;
 
         return<THashtags[]> hashtags.data.map(hashtag => ({
@@ -56,31 +58,6 @@ async function getHashtags(hashtagQuery: string) {
         console.log(error);
     }
 }
-
-// const getHashtags = async (hashtagQuery: string) => {
-//     try {
-//         const response = await Twitter.get<THashtagsResponse>("/recent", {
-//             params: {
-//                 query: hashtagQuery,
-//                 expansions: "author_id",
-//                 "user.fields": "profile_image_url",
-//             },
-//         });
-
-//         const hashtags = await response.data;
-//         const users = await hashtags.includes.users;
-
-//         return<THashtags[]> hashtags.data.map(hashtag => ({
-//             id: hashtag.id,
-//             author_id: hashtag.author_id,
-//             text: hashtag.text,
-//             user: users.find(user => user.id === hashtag.author_id),
-//         }));
-
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
 
 export const HashtagsService = {
     getHashtags
