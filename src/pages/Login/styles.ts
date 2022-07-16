@@ -15,7 +15,7 @@ export const Container = styled.div`
     background-size: cover;
 
     .container-login {
-        max-width: 500px;
+        width: 500px;
         margin: auto;
         backdrop-filter: blur(30px);
         background: rgba(10, 23, 68, 0.6);
@@ -35,47 +35,48 @@ export const Container = styled.div`
             color: #72efdb;
         }
 
-        form {
+        .form-field {
             display: inline-block;
+            padding: 15px;
             width: 100%;
-            flex-direction: column;
-            text-align: center;
-            margin: 30px 0;
-
-            input {
-                width: 100%;
-                padding: 10px;
-                margin-top: 20px;
-                background: none;
-                font-size: 14px;
-                color: #fff;
-                border: none;
-                border-bottom: 1.5px solid #ffffff24;
-            }
-
-            input::placeholder {
-                color: #fff;
-            }
-
-            button {
-                width: 35%;
-                padding: 10px 5px;
-                margin-top: 50px;
-                border-radius: 50px;
-                border: none;
-                background-color: #72efdb;
-                color: #0a1744;
-                text-transform: uppercase;
-                font-weight: 500;
-                font-size: 14px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-
-            button:hover {
-                background-color: #2ba08d;
-            }
+            margin-top: 10px;
+            background: none;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-bottom: 1.5px solid #ffffff24;
         }
+
+        input::placeholder {
+            color: #fff;
+        }
+    }
+
+    .button {
+        width: 35%;
+        padding: 10px 5px;
+        margin-top: 40px;
+        border-radius: 50px;
+        border: none;
+        background-color: #72efdb;
+        color: #0a1744;
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+        background-color: #2ba08d;
+    }
+
+    .form-error {
+        display: block;
+        color: #72efdb;
+        font-size: 0.9em;
+        font-weight: 400;
+        margin-top: 10px;
     }
 
     @media (max-width: 530px) {
