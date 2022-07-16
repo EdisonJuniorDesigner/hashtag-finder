@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Container, Title, Subtitle, Hero, Developers } from "./styles";
 import aboutIllustration from "assets/img/about-ilustration.svg";
 import DevCard from 'components/DevCard';
-import { AboutContentService, TDevs } from 'services';
+import { AboutContentService } from 'services';
 
 type TDev = {
   id: string,

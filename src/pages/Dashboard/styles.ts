@@ -4,7 +4,7 @@ import Background from "../../assets/img/table-bg.jpg";
 export const Container = styled.div`
   padding: 15px 8%;
   color: #fff;
-  height: 100vh;
+  min-height: 100vh;
   background-image: url(${Background});
   background-size: cover;
   background-position: center;

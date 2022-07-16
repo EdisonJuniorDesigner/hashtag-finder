@@ -1,5 +1,5 @@
 import axios from "axios";
-// import OAuth from "oauth-1.0a";
+import airtable from "airtable";
 
 const API_KEY = process.env.REACT_APP_AIRTABLE_API_KEY;
 const DATABASE_ID = process.env.REACT_APP_AIRTABLE_DATABASE_ID || "";
@@ -9,6 +9,7 @@ export const Airtable = axios.create({
     baseURL: `https://api.airtable.com/v0/${DATABASE_ID}`,
     headers: {
         Authorization: `Bearer ${API_KEY}`,
+        "Content-Type": "application/json"
     },
 });
 
@@ -20,3 +21,5 @@ export const Twitter = axios.create({
         accept: "application/json",
     },
 });
+
+export const base = new airtable({ apiKey: API_KEY }).base(DATABASE_ID);
