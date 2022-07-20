@@ -33,26 +33,26 @@ export const Home = () => {
 
     const handleChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
         setShowQuery(false);
-        if(e.key === "Enter" && tweetQuery.length > 0) {
+        if (e.key === "Enter" && tweetQuery.length > 0) {
             handleSend();
             return false;
         }
         return false;
-    }
+    };
 
     const handleSend = () => {
         setLoading(true);
-        getHashtags(tweetQuery).then(res => setTweets(res));
+        getHashtags(tweetQuery).then((res) => setTweets(res));
         setShowQuery(true);
         setLoading(false);
-    }
+    };
 
     useEffect(() => {
         handleToggle();
     }, [current]);
 
     useEffect(() => {
-        getHashtags("natureza").then(res => setTweets(res));
+        getHashtags("natureza").then((res) => setTweets(res));
         setLoading(false);
     }, []);
 
@@ -70,7 +70,7 @@ export const Home = () => {
                         </p>
                     </div>
                     <div className="search">
-                        <form onSubmit={e => e.preventDefault()}>
+                        <form onSubmit={(e) => e.preventDefault()}>
                             <img
                                 src={IconSearch}
                                 alt="search"
@@ -82,8 +82,8 @@ export const Home = () => {
                                 className="search-input"
                                 placeholder="Buscar..."
                                 value={tweetQuery}
-                                onChange={e => setTweetQuery(e.target.value)}
-                                onKeyPress={e => handleChange(e)}
+                                onChange={(e) => setTweetQuery(e.target.value)}
+                                onKeyPress={(e) => handleChange(e)}
                             />
                         </form>
                     </div>
@@ -91,90 +91,75 @@ export const Home = () => {
                 <div className="content">
                     {!isMobile ? (
                         <>
-                            { showQuery && (
+                            {showQuery && (
                                 <h2>
                                     Exibindo os 10 resultados mais recentes para
                                     #{tweetQuery}
                                 </h2>
-                            ) }
+                            )}
                             <div className="content-twitter">
                                 <div className="content-twitter-images">
-                                    <div
-                                        className="twitter-image"
-                                        style={{
-                                            backgroundImage: `url(${Img})`,
-                                        }}
-                                    >
-                                        <div className="twitter-image-info">
-                                            <p>postador por:</p>
-                                            <span>@twitterusername</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        className="twitter-image"
-                                        style={{
-                                            backgroundImage: `url(${Img})`,
-                                        }}
-                                    >
-                                        <div className="twitter-image-info">
-                                            <p>postador por:</p>
-                                            <span>@twitterusername</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        className="twitter-image"
-                                        style={{
-                                            backgroundImage: `url(${Img})`,
-                                        }}
-                                    >
-                                        <div className="twitter-image-info">
-                                            <p>postador por:</p>
-                                            <span>@twitterusername</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        className="twitter-image"
-                                        style={{
-                                            backgroundImage: `url(${Img})`,
-                                        }}
-                                    >
-                                        <div className="twitter-image-info">
-                                            <p>postador por:</p>
-                                            <span>@twitterusername</span>
-                                        </div>
-                                    </div>
+                                    {loading
+                                        ? "Carregando..."
+                                        : tweets?.map((tweet) => {
+                                              return (
+                                                  <div
+                                                      className="twitter-image"
+                                                      style={{
+                                                          backgroundImage: `url(${tweet.media.url})`,
+                                                      }}
+                                                  >
+                                                      <div className="twitter-image-info">
+                                                          <p>postador por:</p>
+                                                          <span>
+                                                              {tweet.user.name}
+                                                          </span>
+                                                      </div>
+                                                  </div>
+                                              );
+                                          })}
                                 </div>
 
                                 <div className="content-twitter-tweets">
-                                    {loading ? "Carregando..." : tweets?.map((tweet) => {
-                                        return (
-                                            <div className="twitter-tweet">
-                                                <img
-                                                    src={
-                                                        tweet.user.profile_image_url
-                                                    }
-                                                    alt="Foto de perfil"
-                                                />
-                                                <div>
-                                                    <div className="tweet-head">
-                                                        <p>
-                                                            {tweet.user.name}
-                                                        </p>
-                                                        <span>
-                                                            @
-                                                            {tweet.user.username}
-                                                        </span>
-                                                    </div>
-                                                    <p className="tweet">
-                                                        {tweet.text}
-                                                    </p>
-                                                    <a href="">
-                                                        Ver mais no Twitter
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
+                                    {loading
+                                        ? "Carregando..."
+                                        : tweets?.map((tweet) => {
+                                              return (
+                                                  <div className="twitter-tweet">
+                                                      <img
+                                                          src={
+                                                              tweet.user
+                                                                  .profile_image_url
+                                                          }
+                                                          alt="Foto de perfil"
+                                                      />
+                                                      <div>
+                                                          <div className="tweet-head">
+                                                              <p>
+                                                                  {
+                                                                      tweet.user
+                                                                          .name
+                                                                  }
+                                                              </p>
+                                                              <span>
+                                                                  @
+                                                                  {
+                                                                      tweet.user
+                                                                          .username
+                                                                  }
+                                                              </span>
+                                                          </div>
+                                                          <p className="tweet">
+                                                              {tweet.text}
+                                                          </p>
+                                                          <a href="">
+                                                              Ver mais no
+                                                              Twitter
+                                                          </a>
+                                                      </div>
+                                                  </div>
+                                              );
+                                          })}
                                 </div>
                             </div>
                         </>
