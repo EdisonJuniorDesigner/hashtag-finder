@@ -1,18 +1,14 @@
 import { Twitter } from "providers";
 
+interface IAttachments {
+    media_keys: string[];
+}
+
 interface IHashtag {
-    attachments: IAttachments[];
+    attachments: IAttachments;
     id: string;
     author_id: string;
     text: string;
-}
-
-interface IAttachments {
-    media_keys: IAttachmentsValue[];
-}
-
-interface IAttachmentsValue {
-    0: string;
 }
 
 interface ITwitterUser {
@@ -36,11 +32,7 @@ type THashtagsResponse = {
 };
 
 export type THashtags = {
-    attachments: [
-        media_keys: {
-            0: string;
-        }
-    ];
+    attachments: string;
     id: string;
     author_id: string;
     text: string;
@@ -56,7 +48,8 @@ export type THashtags = {
     };
 };
 
-async function getHashtags(hashtagQuery: string) {
+async function getHashtags(hashtagQuery: string, maxResults: number) {
+    if(hashtagQuery.length === 0) return [];
     try {
         const hashtagResponse = await Twitter.get<THashtagsResponse>(
             "/recent",
@@ -65,10 +58,11 @@ async function getHashtags(hashtagQuery: string) {
                     query:
                         hashtagQuery +
                         " has:hashtags -is:retweet -is:quote has:images",
-                    expansions: "author_id,attachments.media_keys",
-                    "user.fields": "profile_image_url",
-                    "media.fields": "type,url,width,height",
-                    "tweet.fields": "source",
+                        max_results: maxResults,
+                        expansions: "author_id,attachments.media_keys",
+                        "user.fields": "profile_image_url",
+                        "media.fields": "type,url,width,height",
+                        "tweet.fields": "source",
                 },
             }
         );
@@ -81,11 +75,12 @@ async function getHashtags(hashtagQuery: string) {
             id: hashtag.id,
             author_id: hashtag.author_id,
             text: hashtag.text,
-            media: medias.find((media) => media.media_key),
+            media: medias.find((media) => media.media_key === hashtag.attachments.media_keys[0]),
             user: users.find((user) => user.id === hashtag.author_id),
         }));
     } catch (error) {
         console.log(error);
+        return [];
     }
 }
 
