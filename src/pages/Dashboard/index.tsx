@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
-import { Container, Title, Table } from './styles';
+import { Container, Title, Table, Button } from './styles';
 
 import { SearchesService } from "services";
 
@@ -11,6 +12,8 @@ type TSearch = {
 }
 
 export function Dashboard() {
+
+  const isMobile = useMediaQuery({ maxWidth: 700 });
 
   const { getSearches } = SearchesService;
   const [searches, setSearches] = useState<TSearch[] | null>(null);
@@ -34,7 +37,7 @@ export function Dashboard() {
     };
   }
 
-  const handleEndOfPage = (event: Event) => {
+  const handleEndOfPage = () => {
       if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
       setLoading(true);
       setPageSize(pageSize => pageSize + 10);
@@ -72,7 +75,7 @@ export function Dashboard() {
             )) : <tr><td>Carregando...</td></tr> }
         </tbody>
       </Table>
-      { loading && <div>Carregando...</div> }
+      { isMobile && <Button onClick={() => { if(!loading) setPageSize(pageSize => pageSize+10) }}>Carregar mais</Button> }
     </Container>
   );
 }

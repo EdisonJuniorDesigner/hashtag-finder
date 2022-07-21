@@ -124,3 +124,21 @@ export const Table = styled.table`
     }
   }
 `;
+
+export const Button = styled.button`
+  background-color: #72EFDB;
+  border-radius: 24px;
+  border: none;
+  color: #000;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 20px auto;
+  transition: background-color 0.1s;
+  display: block;
+
+  &:hover {
+    background-color: #2ba08d;
+    cursor: pointer;
+  }
+`;
