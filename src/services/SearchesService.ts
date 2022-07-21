@@ -27,17 +27,15 @@ const getSearches = async (pageSize: number) => {
 
 const postSearch = async (search: string) => {
   try{
-    const response = await Airtable.post("/Buscas", {
-      data: JSON.stringify({
-        records: [{
-          fields: {
-            Squad: '05-22',
-            Hashtag: search,
-            Data: Date.now(),
-          }
-        }]
-      })
-    });
+    const response = await Airtable.post("/Buscas", JSON.stringify({
+      records: [{
+        fields: {
+          Squad: '05-22',
+          Hashtag: search,
+          Data: Date.now(),
+        }
+      }]
+    }));
   }catch(e){
     console.log(e);
   }
