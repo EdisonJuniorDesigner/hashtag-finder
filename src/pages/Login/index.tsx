@@ -29,8 +29,7 @@ export const Login = () => {
             navigate("/dashboard");
             return;
         }
-
-        alert(login?.message);
+        if(login) alert(login?.message);
 
     }, [login])
 
