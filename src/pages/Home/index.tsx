@@ -15,7 +15,7 @@ export const Home = () => {
 
     const [tweetQuery, setTweetQuery] = useState("");
     const [maxResults, setMaxResults] = useState(10);
-    // const [imageActive, setImageActive] = useState({});
+    const [imageActive, setImageActive] = useState({});
 
     const [tweets, setTweets] = useState<THashtags[] | []>([]);
     const [loading, setLoading] = useState(true);
@@ -53,7 +53,7 @@ export const Home = () => {
     const handleSend = () => {
         setLoading(true);
         setMaxResults(10);
-        // setImageActive(false);
+        setImageActive(false);
         getHashtags(tweetQuery, maxResults).then((res) => setTweets(res));
         postSearch(tweetQuery);
         setShowQuery(true);
@@ -89,6 +89,9 @@ export const Home = () => {
         getHashtags(tweetQuery, maxResults)
             .then((res) => setTweets(res))
             .then(() => setLoading(false));
+
+        // Porém ta dando problema pq parece tipo aquelas imagens rápidas da jequiti
+        setImageActive(false);
     }, [maxResults]);
 
     useEffect(() => console.log(maxResults), [maxResults]);
@@ -144,8 +147,9 @@ export const Home = () => {
                                                       style={{
                                                           backgroundImage: `url(${tweet.media.url})`,
                                                       }}
-                                                      //   onClick={() => {
-                                                      //   }}
+                                                      onClick={() => {
+                                                          setImageActive({});
+                                                      }}
                                                   >
                                                       <div className="twitter-image-info">
                                                           <p>postador por:</p>
@@ -157,6 +161,34 @@ export const Home = () => {
                                               );
                                           })}
                                 </div>
+
+                                {imageActive && (
+                                    <div
+                                        key="15"
+                                        className={
+                                            imageActive
+                                                ? "tweet-image-modal"
+                                                : "tweet-image-modal-disabled"
+                                        }
+                                        onClick={() => {
+                                            setImageActive(false);
+                                        }}
+                                    >
+                                        <div className="tweet-image-modal-container">
+                                            <img
+                                                src="http://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png"
+                                                alt="imagem de pinguins"
+                                            />
+                                            <button
+                                                onClick={() => {
+                                                    setImageActive(false);
+                                                }}
+                                            >
+                                                X
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
 
                                 <div className="content-twitter-tweets">
                                     {loading
