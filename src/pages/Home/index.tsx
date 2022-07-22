@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Container } from "./styles";
-import Img from "../../assets/img/img-01.jpg";
-import ImgProfile from "../../assets/img/img-profile.png";
 import IconSearch from "../../assets/img/icon-search.svg";
 import { useMediaQuery } from "react-responsive";
 import { HashtagsService, THashtags, SearchesService } from "services";
@@ -17,6 +15,7 @@ export const Home = () => {
 
     const [tweetQuery, setTweetQuery] = useState("");
     const [maxResults, setMaxResults] = useState(10);
+    // const [imageActive, setImageActive] = useState({});
 
     const [tweets, setTweets] = useState<THashtags[] | []>([]);
     const [loading, setLoading] = useState(true);
@@ -34,18 +33,27 @@ export const Home = () => {
         tweetsRef.current?.blur();
     };
 
+    // * Possível Solução Hashtag *
+    // const handleFixHashtag = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setTweetQuery(
+    //         e.target.value.replace(/[^a-zA-Z0-9_]/g, '').replace(' ', ''),
+    //     );
+    // }
+
     const handleChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
         setShowQuery(false);
         if (e.key === "Enter" && tweetQuery.length > 0) {
             handleSend();
             return false;
         }
+
         return false;
     };
 
     const handleSend = () => {
         setLoading(true);
         setMaxResults(10);
+        // setImageActive(false);
         getHashtags(tweetQuery, maxResults).then((res) => setTweets(res));
         postSearch(tweetQuery);
         setShowQuery(true);
@@ -53,26 +61,34 @@ export const Home = () => {
     };
 
     const handleEndOfPage = () => {
-        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+        if (
+            window.innerHeight + document.documentElement.scrollTop !==
+            document.documentElement.offsetHeight
+        )
+            return;
 
-        if(tweetQuery.length > 0){
+        if (tweetQuery.length > 0) {
             setLoading(true);
-            setMaxResults(maxResults => maxResults + 10);
+            setMaxResults((maxResults) => maxResults + 10);
         }
-    }
+    };
 
     useEffect(() => {
         handleToggle();
     }, [current]);
 
     useEffect(() => {
-        getHashtags(tweetQuery, maxResults).then((res) => setTweets(res)).then(() => setLoading(false));
-        window.addEventListener('scroll', handleEndOfPage);
-        return () => window.removeEventListener('scroll', handleEndOfPage);
+        getHashtags(tweetQuery, maxResults)
+            .then((res) => setTweets(res))
+            .then(() => setLoading(false));
+        window.addEventListener("scroll", handleEndOfPage);
+        return () => window.removeEventListener("scroll", handleEndOfPage);
     }, []);
 
     useEffect(() => {
-        getHashtags(tweetQuery, maxResults).then((res) => setTweets(res)).then(() => setLoading(false))
+        getHashtags(tweetQuery, maxResults)
+            .then((res) => setTweets(res))
+            .then(() => setLoading(false));
     }, [maxResults]);
 
     useEffect(() => console.log(maxResults), [maxResults]);
@@ -112,8 +128,8 @@ export const Home = () => {
                         <>
                             {showQuery && (
                                 <h2>
-                                    Exibindo os {maxResults} resultados mais recentes para
-                                    #{tweetQuery}
+                                    Exibindo os {maxResults} resultados mais
+                                    recentes para #{tweetQuery}
                                 </h2>
                             )}
                             <div className="content-twitter">
@@ -122,11 +138,14 @@ export const Home = () => {
                                         ? "Carregando..."
                                         : tweets?.map((tweet) => {
                                               return (
-                                                  <div key={tweet.id}
+                                                  <div
+                                                      key={tweet.id}
                                                       className="twitter-image"
                                                       style={{
                                                           backgroundImage: `url(${tweet.media.url})`,
                                                       }}
+                                                      //   onClick={() => {
+                                                      //   }}
                                                   >
                                                       <div className="twitter-image-info">
                                                           <p>postador por:</p>
@@ -144,7 +163,10 @@ export const Home = () => {
                                         ? "Carregando..."
                                         : tweets?.map((tweet) => {
                                               return (
-                                                  <div key={tweet.id} className="twitter-tweet">
+                                                  <div
+                                                      key={tweet.id}
+                                                      className="twitter-tweet"
+                                                  >
                                                       <img
                                                           src={
                                                               tweet.user
@@ -152,8 +174,10 @@ export const Home = () => {
                                                           }
                                                           alt="Foto de perfil"
                                                           onError={(e) => {
-                                                            e.currentTarget.src = "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
-                                                            e.currentTarget.onerror = null;
+                                                              e.currentTarget.src =
+                                                                  "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
+                                                              e.currentTarget.onerror =
+                                                                  null;
                                                           }}
                                                       />
                                                       <div>
@@ -176,10 +200,10 @@ export const Home = () => {
                                                               {tweet.text}
                                                           </p>
                                                           <a
-                                                            href={`https://twitter.com/${tweet.user.username}/status/${tweet.id}`}
-                                                            target="_blank"
-                                                            rel="noreferrer"
-                                                            >
+                                                              href={`https://twitter.com/${tweet.user.username}/status/${tweet.id}`}
+                                                              target="_blank"
+                                                              rel="noreferrer"
+                                                          >
                                                               Ver mais no
                                                               Twitter
                                                           </a>
@@ -214,64 +238,88 @@ export const Home = () => {
 
                                 {current === "tweets" && (
                                     <div className="content-twitter-tweets">
-                                        {loading ? "Carregando..." : tweets?.map((tweet) => {
-                                            return (
-                                                <div key={tweet.id} className="twitter-tweet">
-                                                    <img
-                                                        src={tweet.user.profile_image_url}
-                                                        alt="Foto de perfil"
-                                                        onError={(e) => {
-                                                            e.currentTarget.src = "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
-                                                            e.currentTarget.onerror = null;
-                                                        }}
-                                                    />
-                                                    <div>
-                                                        <div className="tweet-head">
-                                                            <p>UserName</p>
-                                                            <span>
-                                                                @{tweet.user.username}
-                                                            </span>
-                                                        </div>
-                                                        <p className="tweet">
-                                                            Lorem ipsum dolor sit amet,
-                                                            consetetur sadipscing elitr,
-                                                            sed diam nonumy eirmod
-                                                            tempor invidunt...
-                                                        </p>
-                                                        <a
-                                                            href={`https://twitter.com/${tweet.user.username}/status/${tweet.id}`}
-                                                            target="_blank"
-                                                            rel="noreferrer"
-                                                            >
-                                                            Ver mais no Twitter
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            )})
-                                        }
+                                        {loading
+                                            ? "Carregando..."
+                                            : tweets?.map((tweet) => {
+                                                  return (
+                                                      <div
+                                                          key={tweet.id}
+                                                          className="twitter-tweet"
+                                                      >
+                                                          <img
+                                                              src={
+                                                                  tweet.user
+                                                                      .profile_image_url
+                                                              }
+                                                              alt="Foto de perfil"
+                                                              onError={(e) => {
+                                                                  e.currentTarget.src =
+                                                                      "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
+                                                                  e.currentTarget.onerror =
+                                                                      null;
+                                                              }}
+                                                          />
+                                                          <div>
+                                                              <div className="tweet-head">
+                                                                  <p>
+                                                                      UserName
+                                                                  </p>
+                                                                  <span>
+                                                                      @
+                                                                      {
+                                                                          tweet
+                                                                              .user
+                                                                              .username
+                                                                      }
+                                                                  </span>
+                                                              </div>
+                                                              <p className="tweet">
+                                                                  {tweet.text}
+                                                              </p>
+                                                              <a
+                                                                  href={`https://twitter.com/${tweet.user.username}/status/${tweet.id}`}
+                                                                  target="_blank"
+                                                                  rel="noreferrer"
+                                                              >
+                                                                  Ver mais no
+                                                                  Twitter
+                                                              </a>
+                                                          </div>
+                                                      </div>
+                                                  );
+                                              })}
                                     </div>
                                 )}
                                 {current === "images" && (
                                     <div className="content-twitter-images">
-
-                                    {loading
-                                        ? "Carregando..."
-                                        : tweets?.map((tweet) => {
-                                            return (
-                                                <div key={tweet.id}
-                                                    className="twitter-image"
-                                                    style={{
-                                                        backgroundImage: `url(${tweet.media.url})`,
-                                                        backgroundPosition: "center",
-                                                    }}
-                                                >
-                                                    <div className="twitter-image-info">
-                                                        <p>postador por:</p>
-                                                        <span>@{tweet.user.username}</span>
-                                                    </div>
-                                                </div>
-                                            );
-                                    })}
+                                        {loading
+                                            ? "Carregando..."
+                                            : tweets?.map((tweet) => {
+                                                  return (
+                                                      <div
+                                                          key={tweet.id}
+                                                          className="twitter-image"
+                                                          style={{
+                                                              backgroundImage: `url(${tweet.media.url})`,
+                                                              backgroundPosition:
+                                                                  "center",
+                                                          }}
+                                                      >
+                                                          <div className="twitter-image-info">
+                                                              <p>
+                                                                  postador por:
+                                                              </p>
+                                                              <span>
+                                                                  @
+                                                                  {
+                                                                      tweet.user
+                                                                          .username
+                                                                  }
+                                                              </span>
+                                                          </div>
+                                                      </div>
+                                                  );
+                                              })}
                                     </div>
                                 )}
                             </div>
