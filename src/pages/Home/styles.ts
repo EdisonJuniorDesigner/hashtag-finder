@@ -10,7 +10,7 @@ export const Container = styled.div`
     background-image: linear-gradient(to bottom, transparent 0%, #0a1744 95%),
         url(${backgroundHero});
     background-repeat: no-repeat;
-    background-position: 0 -30%;
+    background-position: 0 0%;
 
     .container-home {
         width: 1600px;
@@ -98,8 +98,8 @@ export const Container = styled.div`
                         justify-content: end;
                         border-radius: 15px;
                         margin: 20px 20px;
-                        width: 180px;
-                        height: 300px;
+                        width: 100px;
+                        height: 400px;
 
                         .twitter-image-info {
                             padding: 20px;
@@ -112,62 +112,6 @@ export const Container = styled.div`
                             );
                         }
                     }
-                }
-
-                .tweet-image-modal {
-                    width: 100vw;
-                    height: 100vh;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    z-index: 10;
-                    background: rgba(0, 0, 0, 0.8);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    .tweet-image-modal-container {
-                        background-color: #fff;
-                        width: 45vw;
-                        margin: 3.5vw auto 0 auto;
-                        height: 85vh;
-                        box-shadow: 0px 0px 27px -4px rgba(0, 0, 0, 0.78);
-                        border-radius: 1.25rem;
-                        position: absolute;
-                        display: flex;
-                        z-index: 10;
-
-                        img {
-                            object-fit: cover;
-                            width: 100%;
-                            height: 100%;
-                            border-radius: 1.25rem;
-                            -webkit-box-shadow: 0px 0px 27px -4px rgba(0, 0, 0, 0.78);
-                            box-shadow: 0px 0px 27px -4px rgba(0, 0, 0, 0.78);
-                        }
-
-                        button {
-                            font-size: 15px;
-                            cursor: pointer;
-                            right: 0;
-                            font-weight: Bold;
-                            border: none;
-                            background: none;
-                            position: absolute;
-                            background-color: #000;
-                            margin: 10px;
-                            padding: 6px 10px;
-                            max-height: 55px;
-                            border-radius: 4px;
-                            box-shadow: 0px 0px 27px -4px rgba(0, 0, 0, 0.78);
-                            text-align: center;
-                            color: var(--button-color);
-                        }
-                    }
-                }
-
-                .tweet-image-modal-disabled {
-                    display: none;
                 }
 
                 .content-twitter-tweets {
