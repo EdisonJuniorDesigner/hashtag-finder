@@ -341,8 +341,8 @@ export const Container = styled.div`
                             border: none;
                         }
 
-                        .content-head-tweets:focus,
-                        .content-head-images:focus {
+                        .content-head-tweets.active,
+                        .content-head-images.active {
                             font-weight: bold;
                             color: #72efdb;
                             border-bottom: 2px solid #72efdb;
