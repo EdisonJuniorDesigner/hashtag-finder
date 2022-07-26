@@ -98,7 +98,7 @@ export const Container = styled.div`
                         justify-content: end;
                         border-radius: 15px;
                         margin: 20px 20px;
-                        width: 100px;
+                        width: 280px;
                         height: 400px;
 
                         .twitter-image-info {
