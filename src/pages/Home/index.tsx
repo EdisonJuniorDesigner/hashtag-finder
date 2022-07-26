@@ -227,7 +227,6 @@ export const Home = () => {
                                             return (
                                                 <div
                                                     key={tweet.id}
-<<<<<<< HEAD
                                                     className="twitter-tweet">
                                                         <img
                                                             src={ tweet.user.profile_image_url }
@@ -254,59 +253,12 @@ export const Home = () => {
                                                         </div>
                                                     </div>
                                                 );
-=======
-                                                    className="twitter-tweet"
-                                                >
-                                                    <img
-                                                        src={
-                                                            tweet.user
-                                                                .profile_image_url
-                                                        }
-                                                        alt="Foto de perfil"
-                                                        onError={(e) => {
-                                                            e.currentTarget.src =
-                                                                "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg";
-                                                            e.currentTarget.onerror =
-                                                                null;
-                                                        }}
-                                                    />
-                                                    <div>
-                                                        <div className="tweet-head">
-                                                            <p>
-                                                                {
-                                                                    tweet.user
-                                                                        .name
-                                                                }
-                                                            </p>
-                                                            <span>
-                                                                @
-                                                                {
-                                                                    tweet.user
-                                                                        .username
-                                                                }
-                                                            </span>
-                                                        </div>
-                                                        <p className="tweet">
-                                                            {tweet.text}
-                                                        </p>
-                                                        <a
-                                                            href={`https://twitter.com/${tweet.user.username}/status/${tweet.id}`}
-                                                            target="_blank"
-                                                            rel="noreferrer"
-                                                        >
-                                                            Ver mais no Twitter
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            );
->>>>>>> 3e167691ae11c079e569924e909cc37bda4bea49
                                         })}
                                     </div>
                                 )}
                                 {isImagesSelected && (
                                     <div className="content-twitter-images">
                                         {tweets?.map((tweet) => {
-<<<<<<< HEAD
                                                   return (
                                                       <div
                                                           key={tweet.id}
@@ -336,31 +288,6 @@ export const Home = () => {
                                                       </div>
                                                   );
                                               })}
-=======
-                                            return (
-                                                <div
-                                                    key={tweet.id}
-                                                    className="twitter-image"
-                                                    style={{
-                                                        backgroundImage: `url(${tweet.media.url})`,
-                                                        backgroundPosition:
-                                                            "center",
-                                                    }}
-                                                >
-                                                    <div className="twitter-image-info">
-                                                        <p>postador por:</p>
-                                                        <span>
-                                                            @
-                                                            {
-                                                                tweet.user
-                                                                    .username
-                                                            }
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
->>>>>>> 3e167691ae11c079e569924e909cc37bda4bea49
                                     </div>
                                 )}
                             </div>
