@@ -21,7 +21,7 @@ export const Home = () => {
     const [maxResults, setMaxResults] = useState(10);
 
     const [selectedTweet, setSelectedTweet] = useState<THashtags | null>(null);
-    const [showLightbox, setShowLightbox] = useState(true);
+    const [showLightbox, setShowLightbox] = useState(false);
 
     const [tweets, setTweets] = useState<THashtags[] | []>([]);
     const [loading, setLoading] = useState(true);
