@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+
 import { useMediaQuery } from 'react-responsive';
+import { format } from 'date-fns';
 
 import { Container, Title, Table, Button } from './styles';
 
@@ -21,19 +23,12 @@ export function Dashboard() {
   const [pageSize, setPageSize] = useState(10);
   const [loading, setLoading] = useState(false);
 
-  const milisecondsToDateTime = (miliseconds: number) => {
+  const parseDate = (miliseconds: number) => {
     const date = new Date(miliseconds);
 
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-
     return {
-      date: `${day}/${month}/${year}`,
-      time: `${hours}:${minutes}`,
+      date: format(date, "dd/MM/yyyy"),
+      time: format(date, "HH:mm")
     };
   }
 
@@ -50,7 +45,9 @@ export function Dashboard() {
   }, [])
 
   useEffect(() => {
-    getSearches(pageSize).then(res => setSearches(res));
+    getSearches(pageSize)
+      .then(res => setSearches(res))
+      .catch(err => console.log(err.response));
     setLoading(false);
   }, [pageSize])
 
@@ -69,8 +66,8 @@ export function Dashboard() {
           { searches ? searches.map((search, index) => (
               <tr key={index}>
                 <td>#{search.hashtag}</td>
-                <td>{ milisecondsToDateTime(Number(search.date)).date }</td>
-                <td>{ milisecondsToDateTime(Number(search.date)).time }</td>
+                <td>{ parseDate(search.date).date }</td>
+                <td>{ parseDate(search.date).time }</td>
               </tr>
             )) : <tr><td>Carregando...</td></tr> }
         </tbody>

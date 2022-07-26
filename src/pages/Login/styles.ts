@@ -79,9 +79,10 @@ export const Container = styled.div`
         margin-top: 10px;
     }
 
-    @media (max-width: 530px) {
+    @media (max-width: 768px) {
         .container-login {
-            margin: auto 20px;
+            width: 100%;
+            margin: 100px 0;
         }
     }
 `;
