@@ -1,8 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
+
 import { Container } from "./styles";
 import IconSearch from "../../assets/img/icon-search.svg";
+
 import { useMediaQuery } from "react-responsive";
+
 import { HashtagsService, THashtags, SearchesService } from "services";
+
+import { Lightbox } from "components/Lightbox";
 
 export const Home = () => {
     const isMobile = useMediaQuery({ maxWidth: 700 });
@@ -11,11 +16,12 @@ export const Home = () => {
     const tweetsRef = useRef<HTMLButtonElement>(null);
     const imagesRef = useRef<HTMLButtonElement>(null);
 
-    const [showQuery, setShowQuery] = useState(false);
-
     const [tweetQuery, setTweetQuery] = useState("");
+    const [inputQuery, setInputQuery] = useState("");
     const [maxResults, setMaxResults] = useState(10);
-    const [imageActive, setImageActive] = useState({});
+
+    const [selectedTweet, setSelectedTweet] = useState<THashtags | null>(null);
+    const [showLightbox, setShowLightbox] = useState(true);
 
     const [tweets, setTweets] = useState<THashtags[] | []>([]);
     const [loading, setLoading] = useState(true);
@@ -41,7 +47,6 @@ export const Home = () => {
     // }
 
     const handleChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        setShowQuery(false);
         if (e.key === "Enter" && tweetQuery.length > 0) {
             handleSend();
             return false;
@@ -53,23 +58,19 @@ export const Home = () => {
     const handleSend = () => {
         setLoading(true);
         setMaxResults(10);
-        setImageActive(false);
-        getHashtags(tweetQuery, maxResults).then((res) => setTweets(res));
+        setInputQuery(tweetQuery);
         postSearch(tweetQuery);
-        setShowQuery(true);
-        setLoading(false);
     };
 
     const handleEndOfPage = () => {
         if (
             window.innerHeight + document.documentElement.scrollTop !==
             document.documentElement.offsetHeight
-        )
-            return;
+        ) return;
 
+        setMaxResults(maxResults => maxResults + 10);
         if (tweetQuery.length > 0) {
             setLoading(true);
-            setMaxResults((maxResults) => maxResults + 10);
         }
     };
 
@@ -78,26 +79,25 @@ export const Home = () => {
     }, [current]);
 
     useEffect(() => {
-        getHashtags(tweetQuery, maxResults)
-            .then((res) => setTweets(res))
-            .then(() => setLoading(false));
         window.addEventListener("scroll", handleEndOfPage);
         return () => window.removeEventListener("scroll", handleEndOfPage);
     }, []);
 
     useEffect(() => {
-        getHashtags(tweetQuery, maxResults)
-            .then((res) => setTweets(res))
-            .then(() => setLoading(false));
-
-        // Porém ta dando problema pq parece tipo aquelas imagens rápidas da jequiti
-        setImageActive(false);
+        setTimeout(() => {
+            getHashtags(tweetQuery, maxResults)
+                .then((res) => setTweets(res))
+                .then(() => setLoading(false));
+            setLoading(false);
+        }, 1000);
     }, [maxResults]);
 
     useEffect(() => console.log(maxResults), [maxResults]);
+    useEffect(() => console.log(showLightbox), [showLightbox]);
 
     return (
         <Container>
+            <Lightbox show={showLightbox} setShow={setShowLightbox} tweet={selectedTweet} />
             <div className="container-home">
                 <div className="hero">
                     <div className="title">
@@ -129,26 +129,26 @@ export const Home = () => {
                 <div className="content">
                     {!isMobile ? (
                         <>
-                            {showQuery && (
+                            {inputQuery && (
                                 <h2>
                                     Exibindo os {maxResults} resultados mais
-                                    recentes para #{tweetQuery}
+                                    recentes para #{inputQuery}
                                 </h2>
                             )}
                             <div className="content-twitter">
                                 <div className="content-twitter-images">
-                                    {loading
-                                        ? "Carregando..."
-                                        : tweets?.map((tweet) => {
+                                    {tweets?.map((tweet) => {
                                               return (
                                                   <div
                                                       key={tweet.id}
                                                       className="twitter-image"
                                                       style={{
                                                           backgroundImage: `url(${tweet.media.url})`,
+                                                          cursor: "pointer",
                                                       }}
                                                       onClick={() => {
-                                                          setImageActive({});
+                                                        setSelectedTweet(tweet);
+                                                        setShowLightbox(true)
                                                       }}
                                                   >
                                                       <div className="twitter-image-info">
@@ -162,38 +162,8 @@ export const Home = () => {
                                           })}
                                 </div>
 
-                                {imageActive && (
-                                    <div
-                                        key="15"
-                                        className={
-                                            imageActive
-                                                ? "tweet-image-modal"
-                                                : "tweet-image-modal-disabled"
-                                        }
-                                        onClick={() => {
-                                            setImageActive(false);
-                                        }}
-                                    >
-                                        <div className="tweet-image-modal-container">
-                                            <img
-                                                src="http://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png"
-                                                alt="imagem de pinguins"
-                                            />
-                                            <button
-                                                onClick={() => {
-                                                    setImageActive(false);
-                                                }}
-                                            >
-                                                X
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
-
                                 <div className="content-twitter-tweets">
-                                    {loading
-                                        ? "Carregando..."
-                                        : tweets?.map((tweet) => {
+                                    {tweets?.map((tweet) => {
                                               return (
                                                   <div
                                                       key={tweet.id}
@@ -270,9 +240,7 @@ export const Home = () => {
 
                                 {current === "tweets" && (
                                     <div className="content-twitter-tweets">
-                                        {loading
-                                            ? "Carregando..."
-                                            : tweets?.map((tweet) => {
+                                        {tweets?.map((tweet) => {
                                                   return (
                                                       <div
                                                           key={tweet.id}
@@ -324,9 +292,7 @@ export const Home = () => {
                                 )}
                                 {current === "images" && (
                                     <div className="content-twitter-images">
-                                        {loading
-                                            ? "Carregando..."
-                                            : tweets?.map((tweet) => {
+                                        {tweets?.map((tweet) => {
                                                   return (
                                                       <div
                                                           key={tweet.id}
@@ -336,7 +302,7 @@ export const Home = () => {
                                                               backgroundPosition:
                                                                   "center",
                                                           }}
-                                                      >
+                                                        >
                                                           <div className="twitter-image-info">
                                                               <p>
                                                                   postador por:
@@ -357,6 +323,11 @@ export const Home = () => {
                             </div>
                         </>
                     )}
+            {loading && (
+                <div className="loading"> 
+                    <p>Carregando...</p>
+                </div>
+            )}
                 </div>
             </div>
         </Container>

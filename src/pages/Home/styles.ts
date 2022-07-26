@@ -43,6 +43,7 @@ export const Container = styled.div`
                 }
 
                 form img.search-img {
+                    cursor: pointer;
                     margin-left: 40px;
                 }
 
