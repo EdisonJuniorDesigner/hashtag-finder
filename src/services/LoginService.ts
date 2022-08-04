@@ -14,23 +14,18 @@ type TLoginResponse = {
   ];
 };
 
-const getLoginAccount = async () => {
-  const response = await Airtable.get<TLoginResponse>(
-      "/Login?view=Grid%20view"
-  );
-  const accounts = await response.data;
-
-  return accounts.records[0].fields;
-};
-
 const loginUser = async (email: string, password: string) => {
 
   if(!email || !password) return { success: false, message: "Preencha todos os campos" };
 
-  const loginData = await getLoginAccount();
+  const response = await Airtable.get<TLoginResponse>(`/Login?filterByFormula={Email}="${email}"`);
+  const accounts = await response.data;
 
-  if(email != loginData.Email) return { success: false, message: "Email invalido" };
-  if(password != loginData.Senha) return { success: false, message: "Sennha invalida" };
+  if(!accounts.records.length) return { success: false, message: "Erro ao logar" };
+
+  const loginData = accounts.records[0].fields;
+
+  if(email != loginData.Email || password != loginData.Senha) return { success: false, message: "Erro ao logar" };
 
   return { success: true, message: "Login realizado com sucesso" };
 
