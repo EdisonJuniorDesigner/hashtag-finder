@@ -14,8 +14,10 @@ type TSearchesResponse = {
   }[]
 }
 
+const SQUAD_ID = "05-22";
+
 const getSearches = async (pageSize: number) => {
-  const response = await Airtable.get<TSearchesResponse>(`/Buscas?view=squad05_view&pageSize=${pageSize}`);
+  const response = await Airtable.get<TSearchesResponse>(`/Buscas?filterByFormula={Squad}="${SQUAD_ID}"&pageSize=${pageSize}`);
   const aboutContent = await response.data;
 
    return aboutContent.records.map(search => ({

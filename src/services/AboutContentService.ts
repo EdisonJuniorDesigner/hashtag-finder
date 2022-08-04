@@ -39,10 +39,10 @@ interface TAboutContentResponse {
 
 export type TDevs = IDev[];
 
+const SQUAD_ID = "05-22";
+
 const getAllDevs = async () => {
-    const response = await Airtable.get<TDevsResponse>(
-        "/Equipe?view=Grid%20view"
-    );
+    const response = await Airtable.get<TDevsResponse>(`/Equipe?filterByFormula={Squad}="${SQUAD_ID}"`);
     const devs = await response.data;
 
     return devs.records.map((dev) => ({
@@ -57,11 +57,8 @@ const getAllDevs = async () => {
 };
 
 const getAboutContent = async () => {
-    const response = await Airtable.get<TAboutContentResponse>(
-        "/Projeto?view=Grid%20view"
-    );
+    const response = await Airtable.get<TAboutContentResponse>(`/Projeto?filterByFormula={Squad}="${SQUAD_ID}"`);
     const aboutContent = await response.data;
-
     return aboutContent.records[0].fields.Sobre;
 };
 
