@@ -1,9 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import * as yup from "yup";
 import { Container } from "./styles";
-import { LoginService } from "services";
 import { useNavigate } from "react-router-dom"
+import { AuthContext } from "contexts/AuthContext";
 
 type TLogin = {
     email: string;
@@ -12,26 +12,22 @@ type TLogin = {
 
 export const Login = () => {
 
-    const { loginUser } = LoginService;
     let navigate = useNavigate();
 
-    const [ login, setLogin ] = useState<{success: boolean, message: string}|null>(null);
+    const { loading, handleLogin } = useContext(AuthContext);
 
+    const handleClickLogin = async ({ email, password }: TLogin) => {
+        const { success, message } = await handleLogin(email, password);
 
-    const handleClickLogin = async (values: TLogin) => {
-        const loginResponse = await loginUser(values.email, values.password);
-        setLogin(loginResponse);
+        if (success) {
+            navigate("/dashboard");
+        }
+
+        if (!success) {
+            alert(message);
+        }
 
     };
-
-    useEffect(() => {
-        if(login?.success){
-            navigate("/dashboard");
-            return;
-        }
-        if(login) alert(login?.message);
-
-    }, [login])
 
     const validationLogin = yup.object().shape({
         email: yup
