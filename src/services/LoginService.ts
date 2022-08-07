@@ -23,11 +23,12 @@ const loginUser = async (email: string, password: string) => {
 
   if(!accounts.records.length) return { success: false, message: "Erro ao logar" };
 
+  const token = accounts.records[0].id;
   const loginData = accounts.records[0].fields;
 
   if(email != loginData.Email || password != loginData.Senha) return { success: false, message: "Erro ao logar" };
 
-  return { success: true, message: "Login realizado com sucesso" };
+  return { success: true, message: "Login realizado com sucesso", token };
 
 }
 
