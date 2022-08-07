@@ -1,5 +1,4 @@
 import axios from "axios";
-import airtable from "airtable";
 
 const API_KEY = process.env.REACT_APP_AIRTABLE_API_KEY;
 const DATABASE_ID = process.env.REACT_APP_AIRTABLE_DATABASE_ID || "";
@@ -21,5 +20,3 @@ export const Twitter = axios.create({
         accept: "application/json",
     },
 });
-
-export const base = new airtable({ apiKey: API_KEY }).base(DATABASE_ID);
